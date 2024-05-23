@@ -1,27 +1,41 @@
+import { useSelector, useDispatch } from "react-redux";
+
+
 const CounterComponent = () => {
+    const counter = useSelector((state) => state.counter);
+
     return (
-        <span>0</span>
+        <span>{counter}</span>
     )
 }
 
 const ButtonComponent = ({sign}) => {
+    const dispatch = useDispatch();
+    const handleClick = () => {
+        dispatch({ type: sign === '+' ? 'INCREMENT' : 'DECREMENT' });
+    };
+
     return (
-        <button>{sign}</button>
-    )
+        <button onClick={handleClick}>{sign}</button>
+    );
 }
 
 const ContainerComponent = () => {
     return (
         <div>
-            <CounterComponent/>
+            <CounterComponent />
         </div>
     )
 }
 
 const App = () => {
+
     return (
-        <ButtonComponent sign="-">
-            <ContainerComponent/>
-            <ButtonComponent sign="+">
-        )
-    }
+        <>
+            <ButtonComponent sign="+" />
+            <ContainerComponent />
+            <ButtonComponent sign="-" />
+        </>
+    )
+}
+export default App;
